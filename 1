@@ -1,0 +1,24 @@
+library(leaflet)
+library(htmltools)
+mimapa <- data.frame(Ranking = datamap$Ranking,
+                     Name = datamap$Name,
+                     City = datamap$City,
+                     Country = datamap$Country,
+                     Latitude = datamap$Latitude,
+                     Longitude = datamap$Longitude
+                     )
+                     map <- mimapa %>%
+  leaflet() %>%
+  addTiles() %>%
+    addMarkers(popup=paste
+             ("<br>Country: ", 
+               htmlEscape(mimapa$Country), 
+              "<br>City: ", 
+               htmlEscape(mimapa$City), 
+              "<br>Parks: ", 
+               htmlEscape(mimapa$Name),
+              "<br>Ranking: ",
+               formatC(datamap$Ranking, format = "d", big.mark = ",")
+              ) 
+map
+  
